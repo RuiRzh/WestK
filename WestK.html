@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>West Kowloon Cultural District</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-image: url('https://webmedia.westkowloon.hk/westkfunfest_1920x800_20250113a.png?VersionId=zE63tTN_BbMWDcoUY0xmbv2wUPS3oQ6B');
+            background-position: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            height: 600px;
+        }
+        #login-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .scenario, .whats-on {
+            margin: 40px auto;
+            padding: 20px;
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .scenario h2, .whats-on h2 {
+            color: #333;
+        }
+        .event {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .event img {
+            width: 120px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .event-details {
+            flex-grow: 1;
+        }
+    </style>
+    <script charset="UTF-8" src="./sensorsdata.min.js"></script>
+    <script charset="UTF-8">
+    var sensors = window['sensorsDataAnalytic201505'];
+    sensors.init({
+      server_url: 'http://123.57.221.145:8106/sa?project=production',
+      heatmap:{scroll_notice_map:'not_collect'},
+      use_client_time:true,
+      send_type:'beacon',
+      show_log:true 
+    });
+    sensors.quick('autoTrack');
+    </script>
+</head>
+<body>
+    <header>
+        <h1>WestK Demo</h1>
+        <div id="login-panel"></div>
+    </header>
+
+    <div class="scenario">
+        <h2>Unified User Experience Across Devices</h2>
+        <p>Users can log in using the sign-in/register button at the top-right corner. After logging in, a personalized greeting will appear.</p>
+    </div>
+
+    <div class="whats-on">
+        <h2>What's On</h2>
+        <ul style="list-style: none; padding: 0;">
+            <li class="event">
+                <img src="https://webmedia.westkowloon.hk/wkartmarch_Thumbnail_20250219.png?VersionId=U.We5bCer8Tm5ihGbJcJcJc8" alt="West Kowloon Art March" width="120">
+                <div>
+                    <h3>West Kowloon Art March</h3>
+                    <p>Experience vibrant art events and creative workshops throughout March at West Kowloon.</p>
+                </div>
+            </li>
+            <li class="event">
+                <img src="https://webmedia.westkowloon.hk/ap-ecodrive_thumbnail_20241107.jpg?VersionId=1rwsTEzdtaEycgPeH"> 
+                <div>
+                    <h3>EcoDrive at Art Park</h3>
+                    <p>Enjoy eco-friendly activities promoting sustainability and creativity at WestK.</p>
+                </div>
+            </li>
+            <li class="event">
+                <img src="https://webmedia.westkowloon.hk/xiqu_The_Flower_Princess_thumbnail_20250217.png?VersionId=LTZRFGn_LoIOArWLqU">
+                <div>
+                    <h3>The Flower Princess</h3>
+                    <p>A captivating Cantonese opera performance at Xiqu Centre.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginPanel = document.getElementById('login-panel');
+            if (sessionStorage.getItem('loggedIn') === 'true') {
+                const title = sessionStorage.getItem('title');
+                const surname = sessionStorage.getItem('surname');
+                loginPanel.innerHTML = `<span>Welcome! ${title} ${surname}</span>`;
+            } else {
+                loginPanel.innerHTML = '<button onclick="location.href=\'./sign-in.html\'" id="loginButton">Login / Register</button>';
+            }
+        });
+    </script>
+</body>
+</html>
