@@ -16,18 +16,37 @@
         header {
             background-image: url('https://webmedia.westkowloon.hk/westkfunfest_1920x800_20250113a.png?VersionId=zE63tTN_BbMWDcoUY0xmbv2wUPS3oQ6B');
             background-position: center;
+            background-size: cover;
             color: white;
             text-align: center;
             position: relative;
             height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
         }
-        #login-panel {
+        #top-panel {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            gap: 10px;
+        }
+        #login-panel, .language-select {
+            background: rgba(255, 255, 255, 0.9);
             padding: 10px;
             border-radius: 5px;
+        }
+        h1#page-title {
+            font-size: 4rem;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px 40px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .scenario, .whats-on {
             margin: 40px auto;
@@ -37,9 +56,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        .scenario h2, .whats-on h2 {
-            color: #333;
-        }
         .event {
             margin-bottom: 15px;
             display: flex;
@@ -48,11 +64,7 @@
         }
         .event img {
             width: 120px;
-            height: auto;
             border-radius: 5px;
-        }
-        .event-details {
-            flex-grow: 1;
         }
     </style>
     <script charset="UTF-8" src="./sensorsdata.min.js"></script>
@@ -70,43 +82,95 @@
 </head>
 <body>
     <header>
-        <h1>WestK Demo</h1>
-        <div id="login-panel"></div>
+        <div id="top-panel">
+            <div class="language-select">
+                <select id="language" onchange="changeLanguage()">
+                    <option value="en" selected>English</option>
+                    <option value="zh-hans">简体中文</option>
+                    <option value="zh-hant">繁體中文</option>
+                </select>
+            </div>
+            <div id="login-panel"></div>
+        </div>
+        <h1 id="page-title">WestK Demo</h1>
     </header>
 
     <div class="scenario">
-        <h2>Unified User Experience Across Devices</h2>
-        <p>Users can log in using the sign-in/register button at the top-right corner. After logging in, a personalized greeting will appear.</p>
+        <h2 id="scenario-title">Unified User Experience Across Devices</h2>
+        <p id="scenario-desc">Users can log in using the sign-in/register button at the top-right corner. After logging in, a personalized greeting will appear.</p>
     </div>
 
     <div class="whats-on">
-        <h2>What's On</h2>
-        <ul style="list-style: none; padding: 0;">
+        <h2 id="whats-on-title">What's On</h2>
+        <ul style="list-style:none;padding:0;">
             <li class="event">
-                <img src="https://webmedia.westkowloon.hk/wkartmarch_Thumbnail_20250219.png?VersionId=U.We5bCer8Tm5ihGbJcJcJc8" alt="West Kowloon Art March" width="120">
+                <img src="https://webmedia.westkowloon.hk/wkartmarch_Thumbnail_20250219.png?VersionId=U.We5bCer8Tm5ihGbJcJcJc8">
                 <div>
-                    <h3>West Kowloon Art March</h3>
-                    <p>Experience vibrant art events and creative workshops throughout March at West Kowloon.</p>
+                    <h3 id="event1-title">West Kowloon Art March</h3>
+                    <p id="event1-desc">Experience vibrant art events and creative workshops throughout March at West Kowloon.</p>
                 </div>
             </li>
             <li class="event">
-                <img src="https://webmedia.westkowloon.hk/ap-ecodrive_thumbnail_20241107.jpg?VersionId=1rwsTEzdtaEycgPeH"> 
+                <img src="https://webmedia.westkowloon.hk/ap-ecodrive_thumbnail_20241107.jpg?VersionId=1rwsTEzdtaEycgPeH">
                 <div>
-                    <h3>EcoDrive at Art Park</h3>
-                    <p>Enjoy eco-friendly activities promoting sustainability and creativity at WestK.</p>
+                    <h3 id="event2-title">EcoDrive at Art Park</h3>
+                    <p id="event2-desc">Enjoy eco-friendly activities promoting sustainability and creativity at WestK.</p>
                 </div>
             </li>
             <li class="event">
                 <img src="https://webmedia.westkowloon.hk/xiqu_The_Flower_Princess_thumbnail_20250217.png?VersionId=LTZRFGn_LoIOArWLqU">
                 <div>
-                    <h3>The Flower Princess</h3>
-                    <p>A captivating Cantonese opera performance at Xiqu Centre.</p>
+                    <h3 id="event3-title">The Flower Princess</h3>
+                    <p id="event3-desc">A captivating Cantonese opera performance at Xiqu Centre.</p>
                 </div>
             </li>
         </ul>
     </div>
 
     <script>
+        const translations = {
+            "en":{
+                "page-title":"WestK Demo",
+                "scenario-title":"Unified User Experience Across Devices",
+                "scenario-desc":"Users can log in using the sign-in/register button at the top-right corner. After logging in, a personalized greeting will appear.",
+                "whats-on-title":"What's On",
+                "event1-title":"West Kowloon Art March",
+                "event1-desc":"Experience vibrant art events and creative workshops throughout March at West Kowloon.",
+                "event2-title":"EcoDrive at Art Park",
+                "event2-desc":"Enjoy eco-friendly activities promoting sustainability and creativity at WestK.",
+                "event3-title":"The Flower Princess",
+                "event3-desc":"A captivating Cantonese opera performance at Xiqu Centre."
+            },
+            "zh-hans":{
+                "page-title":"西九龙演示","scenario-title":"跨设备统一用户体验","scenario-desc":"用户可通过右上角的登录/注册按钮登录。登录后，页面将显示个性化的欢迎语。","whats-on-title":"最新活动","event1-title":"西九龙艺术三月","event1-desc":"在整个三月体验西九龙充满活力的艺术活动和创意工作坊。","event2-title":"艺术公园EcoDrive","event2-desc":"享受推广可持续发展与创意的环保活动。","event3-title":"帝女花","event3-desc":"在戏曲中心欣赏精彩的粤剧表演。"},
+            "zh-hant":{
+                "page-title":"西九龍演示","scenario-title":"跨設備統一用戶體驗","scenario-desc":"用戶可透過右上角的登入/註冊按鈕登入。登入後，將顯示個性化歡迎訊息。","whats-on-title":"最新活動","event1-title":"西九龍藝術三月","event1-desc":"體驗西九龍充滿活力的藝術活動和創意工作坊。","event2-title":"藝術公園EcoDrive","event2-desc":"享受推廣可持續發展與創意的環保活動。","event3-title":"帝女花","event3-desc":"欣賞粵劇表演。"}
+            };
+        
+        function changeLanguage(){
+            const lang=document.getElementById('language').value;
+            let languageName;
+            switch(lang) {
+                case "en":
+                    languageName = "English";
+                    break;
+                case "zh-hans":
+                    languageName = "Simplified Chinese";
+                    break;
+                case "zh-hant":
+                    languageName = "Traditional Chinese";
+                    break;
+                default:
+                    languageName = "Unknown Language";
+            }
+            console.log("Language changed to:", languageName);
+            sensors.setProfile({profile_language:languageName});
+            const texts=translations[lang];
+            for(const key in texts){
+                document.getElementById(key).innerText=texts[key];
+            }
+        }changeLanguage();
+
         document.addEventListener('DOMContentLoaded', function() {
             const loginPanel = document.getElementById('login-panel');
             if (sessionStorage.getItem('loggedIn') === 'true') {
@@ -114,9 +178,13 @@
                 const surname = sessionStorage.getItem('surname');
                 loginPanel.innerHTML = `<span>Welcome! ${title} ${surname}</span>`;
             } else {
-                loginPanel.innerHTML = '<button onclick="location.href=\'./sign-in.html\'" id="loginButton">Login / Register</button>';
+                loginPanel.innerHTML = '<button onclick="location.href=\'./sign-in.html\'">Login / Register</button>';
             }
         });
     </script>
 </body>
 </html>
+
+
+
+
