@@ -164,7 +164,9 @@
                     languageName = "Unknown Language";
             }
             console.log("Language changed to:", languageName);
-            sensors.setProfile({profile_language:languageName});
+            sensors.setProfile({profile_language:languageName,
+                               email:'user0123@sensors.cn',
+                               phone:'13560170000'});
             const texts=translations[lang];
             for(const key in texts){
                 document.getElementById(key).innerText=texts[key];
